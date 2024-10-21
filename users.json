@@ -1,0 +1,6 @@
+[
+	{ "name": "Guest", "areLoggedIn": false },
+	{ "name": "Josefin", "areLoggedIn": true },
+	{ "name": "Henrik", "areLoggedIn": true },
+	{ "name": "Meja", "areLoggedIn": true }
+  ]

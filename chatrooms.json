@@ -1,0 +1,7 @@
+[
+	{ "room": "Blackroom", "isLocked": true },
+	{ "room": "Redroom", "isLocked": true },
+	{ "room": "Yellowroom", "isLocked": false },
+	{ "room": "Greenroom", "isLocked": false},
+	{ "room": "Pinkroom", "isLocked": false}
+  ]
