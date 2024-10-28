@@ -1,10 +1,9 @@
 // Importera och konfigurera
 import express, { Express } from 'express'
-import { router as chatUsersRouter } from './routes/chatUsers'
-
+import { router as chatUsersRouter } from './routes/user.js'
 
 const app: Express = express()
-const port: number = 3333
+const port: number = 3334
 
 // Middleware
 app.use('/', express.static('dist/'))
@@ -12,7 +11,6 @@ app.use('/', express.static('dist/'))
 // Router middleware
 app.use('/api/users', chatUsersRouter)
 
-// Eventuella routes
 
 
 // Starta servern
