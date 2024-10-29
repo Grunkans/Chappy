@@ -10,6 +10,7 @@ app.use('/', express.static('dist/'))
 
 // Router middleware
 app.use('/api/users', chatUsersRouter)
+app.use('/api/chatrooms', chatUsersRouter)
 
 
 
