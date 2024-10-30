@@ -1,4 +1,6 @@
 import './App.css'
+import UserList from './components/UserList'
+
 
 function App() {
   
@@ -23,11 +25,8 @@ function App() {
 			<li className="locked"><a href="#"> #grupp3 🔒 </a></li>
 			<li> <hr/> </li>
 			<li title="Direktmeddelanden"> [DM] </li>
-			<li><a href="#">PratgladPelle</a></li>
-			<li><a href="#">SocialaSara</a></li>
-			<li><a href="#">TrevligaTommy</a></li>
-			<li><a href="#">VänligaVera</a></li>
-			<li><a href="#">GladaGustav</a></li>
+			
+			<UserList/>
 		</ul>
 	</nav>
 	<div className="chat-area">
