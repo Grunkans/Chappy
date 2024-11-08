@@ -2,6 +2,6 @@ import { ObjectId } from "mongodb";
 
 export interface Users {
 	name: string;
-	areLoggedIn: boolean;
+	password: string;
 	_id: ObjectId;
 }

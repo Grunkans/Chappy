@@ -18,9 +18,9 @@ function App() {
 	<main>
 	<nav>
 		<ul>
-			<li> [Kanaler] </li>
+			<li> Chattrum </li>
 			<ChatroomList/>
-			<li title="Direktmeddelanden"> [DM] </li>
+			<li title="Direktmeddelanden"> Se vilka som är här </li>
 			
 			<UserList/>
 		</ul>

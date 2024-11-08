@@ -1,19 +1,25 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Users } from '../data/Users' 
 
-const FactList = () => {
+const Userlist = () => {
 	const [users, setUsers] = useState<Users[]>([])
 
-	const handleGetAll = async () => {
-		const response: Response = await fetch('/api/users')
-		const data = await response.json()
-		
-		setUsers(data as Users[])
+	const fetchUsers = async () => {
+		try {
+			const response: Response = await fetch('/api/users')
+			const data = await response.json()
+			setUsers(data as Users[])
+		} catch (error) {
+			console.error("Failed to fetch chatrooms:", error)
+		}
 	}
+
+	useEffect(() => {
+		fetchUsers() 
+	}, [])
 
 	return (
 		<>
-		<button onClick={handleGetAll}> Show users </button>
 
 		{users.map(users => (
 			<div key={users._id.toString()} className="users">
@@ -24,4 +30,4 @@ const FactList = () => {
 	)
 }
 
-export default FactList
+export default Userlist
