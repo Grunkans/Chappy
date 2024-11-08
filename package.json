@@ -9,11 +9,9 @@
     "lint": "eslint .",
     "preview": "vite preview",
 	"backend": "tsc --project tsconfig.backend.json && node --env-file .env ./backendDist/server.js",
-  "build-backend": "tsc --project tsconfig.backend.json",
-  "start-backend": "node --env-file .env ./backendDist/server.js",
-  "build-frontend": "tsc -b && vite build" 
-
-
+	"build-frontend": "tsc -b && vite build" ,
+	"build-backend": "tsc --project tsconfig.backend.json",
+	"start-backend": "node --env-file .env ./backend-dist/server.js"
   },
   "dependencies": {
     "@types/express": "^5.0.0",
