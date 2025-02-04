@@ -9,7 +9,7 @@ async function getOneUser(id: ObjectId): Promise<WithId<Users>[]> {
 	  const cursor: FindCursor<WithId<Users>> = col.find(filter);
 	  const found: WithId<Users>[] = await cursor.toArray();
 	  if (found.length < 1) {
-		console.log("No user awailable today :/");
+		console.log("User found");
 	  }
 	  return found;
 	} catch (error) {

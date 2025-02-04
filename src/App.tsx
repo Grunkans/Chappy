@@ -20,7 +20,7 @@ function App() {
 		<ul>
 			<li> Chattrum </li>
 			<ChatroomList/>
-			<li title="Direktmeddelanden"> Se vilka som är här </li>
+			<li title="Direktmeddelanden"> Se vilka som är här </li>  
 			
 			<UserList/>
 		</ul>
