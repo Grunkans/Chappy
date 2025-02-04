@@ -15,7 +15,7 @@ const ChatroomList = () => {
 	}
 
 	useEffect(() => {
-		fetchChatrooms() 
+		fetchChatrooms()  
 	}, [])
 
 	return (

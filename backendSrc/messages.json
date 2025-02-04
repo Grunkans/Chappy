@@ -1,0 +1,12 @@
+[
+    {
+      "messageContent": "Hi, how are you guys?",
+	  "userId": "652aef4f9b3c6a0012345678",
+      "chatroomId": "652aef4f9b3c6a0012345678"
+    },
+	{
+		"messageContent": "Im good, how are you?",
+		"userId": "652aef4f9b3c6a0012345678",
+		"chatroomId": "652aef4f9b3c6a0012345678"
+	  }
+]

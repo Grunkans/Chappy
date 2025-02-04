@@ -1,6 +1,7 @@
 import './App.css'
 import UserList from './components/UserList'
 import ChatroomList from './components/ChatroomList'
+import MessagesList from './components/MessagesList'
 
 
 function App() {
@@ -9,11 +10,9 @@ function App() {
 	return (
 	  <div>
 	  <header>
+		<header/>
 	  <h1> Chappy </h1>
-	<div className="user-status">
-		<span>Inloggad som VänligaVera</span>
-		<button> Logga ut </button>
-	</div>
+	
 	</header>
 	<main>
 	<nav>
@@ -32,18 +31,7 @@ function App() {
 	<section className="history">
 		
 		<section className="align-right">
-			<p> VänligaVera: hejsan </p>
-			<p> 17:46 </p>
-		</section>
-		
-		<section>
-			<p> MunterMoa: tjena! </p>
-			<p> 17:47 </p>
-		</section>
-		
-		<section>
-			<p> GladaGustav: hallå! </p>
-			<p> 17:48 </p>
+		<MessagesList/>
 		</section>
 		
 	</section>
