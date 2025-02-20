@@ -6,11 +6,11 @@ import { getAllMessages } from '../database/Messages/getAllMessages.js'
 export const router: Router = express.Router()
 
 
-// Använd "_" som variabelnamn om e
+
 router.get("/", async (_, res: Response<WithId<Messages>[]>) => {
 	try {
 		const allMessages: WithId<Messages>[] = await getAllMessages()
-		console.log("all chatrooms från GET: ",allMessages);
+		console.log("all messages från GET: ",allMessages);
 		
 		
 	if (allMessages.length === 0) {

@@ -5,7 +5,13 @@ import { router as chatroomsRouter } from './routes/chatrooms.js'
 import { router as messagesRouter } from './routes/messages.js'
 
 const app: Express = express()
+app.use(express.json());
 const port: number = Number(process.env.PORT) || 3334
+
+app.use((req, _res, next) => {
+    console.log(`🔍 ${req.method} ${req.url}`)
+    next()
+})
 
 // Middleware
 app.use('/', express.static('dist/'))
