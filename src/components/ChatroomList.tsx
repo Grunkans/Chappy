@@ -1,34 +1,49 @@
-import { useState, useEffect } from 'react'
-import { Chatrooms } from '../data/Chatrooms' 
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
-const ChatroomList = () => {
-	const [chatrooms, setChatrooms] = useState<Chatrooms[]>([])
-
-	const fetchChatrooms = async () => {
-		try {
-			const response: Response = await fetch('/api/chatrooms')
-			const data = await response.json()
-			setChatrooms(data as Chatrooms[])
-		} catch (error) {
-			console.error("Failed to fetch chatrooms:", error)
-		}
-	}
-
-	useEffect(() => {
-		fetchChatrooms()  
-	}, [])
-
-	return (
-		<>
-		
-
-		{chatrooms.map(chatrooms => (
-			<div key={chatrooms._id.toString()} className="chatrooms">
-				<strong> {chatrooms.room} </strong>
-			</div>
-		))}
-		</>
-	)
+interface Chatrooms {
+  _id: string;
+  room: string;
+  isLocked: boolean;
 }
 
-export default ChatroomList
+const ChatroomList = () => {
+  const [chatrooms, setChatrooms] = useState<Chatrooms[]>([]);
+  const { user } = useAuth();
+
+  useEffect(() => {
+    const fetchChatrooms = async () => {
+      try {
+        const response = await fetch("/api/chatrooms");
+        const data = await response.json();
+        setChatrooms(data);
+      } catch (error) {
+        console.error("Failed to fetch chatrooms:", error);
+      }
+    };
+
+    fetchChatrooms();
+  }, []);
+
+  
+  const visibleChatrooms = chatrooms.filter((chatroom) => {
+    if (!user || user.toLowerCase() === "gäst") return !chatroom.isLocked;
+    return true;
+  });
+
+  return (
+    <div>
+      <h2>Chattrum</h2>
+      {visibleChatrooms.map((chatroom) => (
+        <div key={chatroom._id} className="chatroom">
+          <Link to={`/chatroom/${chatroom._id}`}>
+            <strong>{chatroom.room}</strong> {chatroom.isLocked ? "🔒" : "🟢"}
+          </Link>
+        </div>
+      ))}
+    </div>
+  );
+};
+
+export default ChatroomList;

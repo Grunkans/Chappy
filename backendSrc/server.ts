@@ -16,7 +16,7 @@ app.use((req, _res, next) => {
 // Middleware
 app.use('/', express.static('dist/'))
 
-// Router middleware
+
 //loggermiddlewere
 app.use('/api/users', chatUsersRouter)
 app.use('/api/chatrooms', chatroomsRouter)

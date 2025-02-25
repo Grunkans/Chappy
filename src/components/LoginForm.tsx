@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import ChatroomList from "./ChatroomList";
 
 function LoginForm() {
   const [name, setName] = useState("");
@@ -64,6 +65,11 @@ const navigate = useNavigate();
         {loading ? "Loggar in..." : "Logga in"}
       </button>
       <button onClick={handleGuestLogin}>Logga in som Gäst</button>
+
+	  <div>
+		<h3>Välkommen in och hitta nya kompisar!</h3>
+		<ChatroomList/>
+	  </div>
     </div>
   );
 }

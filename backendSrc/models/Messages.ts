@@ -7,3 +7,10 @@ export interface Messages {
 	_id: ObjectId;
 
 }
+
+export interface NewMessageRequest {
+	messageContent: string;
+	userId: string; 
+	chatroomId: string; 
+  }
+  
