@@ -12,7 +12,15 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<string | null>(null);
 
-  const login = (name: string) => setUser(name);
+  const login = (name: string) => {
+    if (name.toLowerCase() === "gäst") {
+      setUser("000000000000000000000000");
+    } else {
+      setUser(name);
+    }
+
+  };
+
   const logout = () => setUser(null);
 
   return (
@@ -22,7 +30,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   );
 }
 
-// Anpassad hook för att använda autentisering
+// hook för auth
 export function useAuth() {
   const context = useContext(AuthContext);
   if (!context) throw new Error("useAuth must be used within AuthProvider");

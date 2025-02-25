@@ -2,7 +2,7 @@ import { ObjectId } from "mongodb";
 
 export interface Messages {
 	messageContent: string;
-	userId: ObjectId;
+	userId: string;
 	chatroomId: ObjectId;
 	_id: ObjectId;
 

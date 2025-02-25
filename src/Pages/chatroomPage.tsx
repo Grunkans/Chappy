@@ -40,7 +40,7 @@ const ChatroomPage = () => {
 
   const sendMessage = async () => {
 	if (!newMessage.trim()) return;
-  
+	console.log("Skickar meddelande med:", { messageContent: newMessage, userId: user, chatroomId: id });
 	try {
 	  const response = await fetch(`/api/messages`, {
 		method: "POST",
@@ -49,7 +49,9 @@ const ChatroomPage = () => {
 		  messageContent: newMessage, 
 		  userId: user, 
 		  chatroomId: id 
+		  
 		}),
+		
 	  });
   
 	  if (response.ok) {

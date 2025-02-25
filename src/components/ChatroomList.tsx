@@ -28,10 +28,14 @@ const ChatroomList = () => {
 
   
   const visibleChatrooms = chatrooms.filter((chatroom) => {
-    if (!user || user.toLowerCase() === "gäst") return !chatroom.isLocked;
-    return true;
-  });
+	
+	if (!user || user === "000000000000000000000000") {
+	  return !chatroom.isLocked;
+	}
+	return true;
 
+	
+  });
   return (
     <div>
       <h2>Chattrum</h2>

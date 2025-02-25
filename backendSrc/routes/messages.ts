@@ -1,6 +1,5 @@
 import { ObjectId } from "mongodb";
 import express, { Router, Request, Response } from 'express'
-import { WithId } from 'mongodb'
 import { Messages, NewMessageRequest } from '../models/Messages.js'
 import { getAllMessages } from '../database/Messages/getAllMessages.js'
 import { saveMessage } from '../database/Messages/saveMessage.js'
@@ -9,15 +8,24 @@ import { getMessagesCollection } from "../database/Messages/messagesCollection.j
 export const router: Router = express.Router()
 
 
-//Hämta meddelsanden
-router.get("/", async (_req: Request, res: Response): Promise<void> => {
+
+router.get("/", async (req: Request, res: Response): Promise<void> => {
 	try {
-	  const allMessages: WithId<Messages>[] = await getAllMessages();
-	  console.log("all messages från GET:", allMessages);
-	  if (allMessages.length === 0) {
+	  const chatroomId = req.query.chatroomId as string;
+	  let messages;
+	  if (chatroomId) {
+		
+		const messagesCollection = await getMessagesCollection();
+		messages = await messagesCollection
+		  .find({ chatroomId: new ObjectId(chatroomId) })
+		  .toArray();
+	  } else {
+		messages = await getAllMessages();
+	  }
+	  if (!messages || messages.length === 0) {
 		res.sendStatus(404);
 	  } else {
-		res.json(allMessages);
+		res.json(messages);
 	  }
 	} catch (error) {
 	  console.error("Fel vid hämtning av meddelanden:", error);
@@ -50,15 +58,13 @@ router.get("/", async (_req: Request, res: Response): Promise<void> => {
 		  return;
 		}
   
-		// Konvertera inkommande strängar till ObjectId
-		const userObjectId = new ObjectId(userId);
 		const chatroomObjectId = new ObjectId(chatroomId);
   
 		const newMessage: Messages = {
 		  messageContent,
-		  userId: userObjectId,
+		  userId, 
 		  chatroomId: chatroomObjectId,
-		  _id: new ObjectId(), // Skapar ett nytt ObjectId för meddelandet
+		  _id: new ObjectId(), 
 		};
   
 		const savedMessage = await saveMessage(newMessage);
