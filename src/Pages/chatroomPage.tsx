@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import './chatroomPage.css';
 
 
 interface Messages {
@@ -10,13 +11,17 @@ interface Messages {
   chatroomId: string;
 }
 
-const ChatroomPage = () => {
-  const { id } = useParams();
-  const { user } = useAuth(); 
-  const [messages, setMessages] = useState<Messages[]>([]);
-  const [newMessage, setNewMessage] = useState("");
-  const messagesEndRef = useRef<HTMLDivElement>(null); 
 
+
+const ChatroomPage = () => {
+	const { id } = useParams();
+	const { user } = useAuth(); 
+	const navigate = useNavigate();
+	const [messages, setMessages] = useState<Messages[]>([]);
+	const [newMessage, setNewMessage] = useState("");
+	const messagesEndRef = useRef<HTMLDivElement>(null); 
+
+  
   useEffect(() => {
     const fetchMessages = async () => {
       try {
@@ -67,13 +72,15 @@ const ChatroomPage = () => {
   };
 
   return (
-    <div>
-      <h2>Chatt</h2>
-      <div>
+    <div className="chatroom-page-div">
+      <button onClick={() => navigate("/dashboard")}>Tillbaka</button>
+      
+      <div className="chatbox-div">
         {messages.map((msg) => (
           <p key={msg._id}>
-            <strong>{msg.userId === user ? "Du" : msg.userId}:</strong> {msg.messageContent}
-          </p>
+		  <strong>{msg.userId === "000000000000000000000000" ? "Gäst" : msg.userId === user ? "Du" : msg.userId}:</strong> 
+		  {msg.messageContent}
+		</p>
         ))}
       </div>
       <div ref={messagesEndRef} /> 

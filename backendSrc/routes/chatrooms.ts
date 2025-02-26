@@ -24,3 +24,5 @@ router.get("/", async (_, res: Response<WithId<Chatrooms>[]>) => {
 	  res.sendStatus(500);
 	}
   });
+
+  

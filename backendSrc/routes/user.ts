@@ -26,20 +26,35 @@ router.get("/", async (_, res: Response<WithId<Users>[]>) => {
 	}
   });
 
+
+  router.get("/:id", async (req: Request, res: Response) => {
+	try {
+	  const { id } = req.params
+	  const allUsers: WithId<Users>[] = await getAllUsers()
+	  const user = allUsers.find(u => u._id.toString() === id)
+	  if (!user) {
+		res.sendStatus(404)
+		return
+	  }
+	  res.json(user)
+	} catch (error) {
+	  console.error("Fel vid hämtning av användare:", error)
+	  res.sendStatus(500)
+	}
+  })
+
+
   router.post("/login", async (req: Request, res: Response): Promise<void> => {
 	console.log("🔍 Request Body:", req.body);
 	const { name, password } = req.body
 	
 
 	try {
-		// Hämta alla användare från databasen
 		const allUsers: WithId<Users>[] = await getAllUsers()
 		console.log("🔍 Alla användare:", allUsers);
 
-		// Kolla om användaren finns i databasen
 		const user = allUsers.find(u => u.name === name && u.password === password)
 
-		// Låter användare logga in som "gäst" utan lösenord
 		if (user || name.toLowerCase() === "gäst") {
 			console.log("✅ Inloggning lyckades:", name); 
 			res.json({ name });
@@ -48,7 +63,7 @@ router.get("/", async (_, res: Response<WithId<Users>[]>) => {
 			
 		}
 
-		// Om ingen användare hittades → returnera 401
+		
 		res.status(401).json({ message: "Fel användarnamn eller lösenord" });
 		return;
 	} catch (error) {

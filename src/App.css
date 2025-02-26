@@ -28,7 +28,7 @@ header .user-status {
 }
 h1 {
 	flex-grow: 1;
-	margin-top: 0;
+	margin-top: 50px;
 }
 main {
 	flex-grow: 1;
@@ -43,13 +43,12 @@ nav ul {
 	padding: 0;
 }
 nav li.selected {
-/* 	background-color: #F1EFBE; */
+
 	border: 1px solid darkgray;
 	font-weight: bold;
 }
 nav li {
 	padding: 0.3em;
-/* 	border: 1px solid #A49E44; */
 	transition: 0.4s all ease-out;
 	display: flex;
 	
@@ -67,8 +66,6 @@ nav li a {
 nav .unread {
 	font-family: monospace;
 	display: inline-block;
-/* 	justify-content: center;
-	align-items:center; */
 	font-size: 90%;
 	position: relative;
 	top: -1em;

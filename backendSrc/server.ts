@@ -1,8 +1,8 @@
-// Importera och konfigurera
 import express, { Express } from 'express'
 import { router as chatUsersRouter } from './routes/user.js'
 import { router as chatroomsRouter } from './routes/chatrooms.js'
 import { router as messagesRouter } from './routes/messages.js'
+import { router as directMessagesRouter } from './routes/dm.js'
 
 const app: Express = express()
 app.use(express.json());
@@ -21,6 +21,7 @@ app.use('/', express.static('dist/'))
 app.use('/api/users', chatUsersRouter)
 app.use('/api/chatrooms', chatroomsRouter)
 app.use('/api/messages', messagesRouter)
+app.use('/api/dms', directMessagesRouter);
 
 
 
