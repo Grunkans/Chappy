@@ -1,50 +1,180 @@
-# React + TypeScript + Vite
+# Chappy - API Dokumentation
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Chappy** är en applikation där du kan chatta och surra med dina vänner! Nedan finns dokumentation för API:ets endpoints.
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+###  Installation & Start
+#### 1️ Installera beroenden:
+```sh
+npm install
+```
+#### 2️ Bygg backend:
+```sh
+npm run build-backend
+```
+#### 3️ Starta backend:
+```sh
+npm run start-backend
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+---
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+###  **Autentisering & Användare**
+####  **Hämta alla användare**
+```http
+GET /api/users
 ```
+| Parameter | Typ  | Beskrivning |
+|-----------|------|------------|
+| x | x | Hämtar alla användare i systemet |
+
+| Status | Beskrivning |
+|--------|------------|
+| 200    | Lyckad begäran (returnerar en array av användare) |
+| 404    | Inga användare hittades |
+| 500    | Serverfel |
+
+---
+
+####  **Hämta en enskild användare**
+```http
+GET /api/users/:id
+```
+| Parameter | Typ | Beskrivning |
+|-----------|----|------------|
+| `id` | String | Användarens unika ID |
+
+| Status | Beskrivning |
+|--------|------------|
+| 200    | Lyckad begäran (returnerar användaren) |
+| 404    | Användaren hittades inte |
+| 500    | Serverfel |
+
+---
+
+####  **Logga in**
+```http
+POST /api/users/login
+```
+| Body-parametrar | Typ  | Beskrivning |
+|-----------|------|------------|
+| `name`    | String | Användarnamn |
+| `password` | String | Lösenord |
+
+| Status | Beskrivning |
+|--------|------------|
+| 200    | Lyckad inloggning (returnerar användarinformation) |
+| 401    | Fel användarnamn eller lösenord |
+| 500    | Serverfel |
+
+---
+
+###  **Meddelanden (Chat Messages)**
+####  **Hämta alla meddelanden (från ett specifikt chattrum)**
+```http
+GET /api/messages?chatroomId={chatroomId}
+```
+| Parameter | Typ | Beskrivning |
+|-----------|----|------------|
+| `chatroomId` | String | Chattrummets ID |
+
+| Status | Beskrivning |
+|--------|------------|
+| 200    | Returnerar en array av meddelanden |
+| 404    | Inga meddelanden hittades |
+| 500    | Serverfel |
+
+---
+
+####  **Skicka ett meddelande**
+```http
+POST /api/messages
+```
+| Body-parametrar | Typ | Beskrivning |
+|-----------|----|------------|
+| `messageContent` | String | Meddelandets innehåll |
+| `userId` | String | Avsändarens ID |
+| `chatroomId` | String | ID för chattrummet |
+
+| Status | Beskrivning |
+|--------|------------|
+| 201    | Meddelandet sparades |
+| 400    | Saknade fält |
+| 500    | Serverfel |
+
+---
+
+###  **Direktmeddelanden (DMs)**
+####  **Hämta DM-konversation mellan två användare**
+```http
+GET /api/dms?user1={user1}&user2={user2}
+```
+| Parameter | Typ | Beskrivning |
+|-----------|----|------------|
+| `user1` | String | ID för första användaren |
+| `user2` | String | ID för andra användaren |
+
+| Status | Beskrivning |
+|--------|------------|
+| 200    | Returnerar en array av direktmeddelanden |
+| 400    | Saknade användar-ID:n |
+| 500    | Serverfel |
+
+---
+
+####  **Skicka ett direktmeddelande**
+```http
+POST /api/dms
+```
+| Body-parametrar | Typ | Beskrivning |
+|-----------|----|------------|
+| `messageContent` | String | Meddelandets innehåll |
+| `senderId` | String | Avsändarens ID |
+| `receiverId` | String | Mottagarens ID |
+
+| Status | Beskrivning |
+|--------|------------|
+| 201    | DM sparat |
+| 400    | Saknade fält |
+| 500    | Serverfel |
+
+---
+
+###  **Chattrum**
+####  **Hämta alla chattrum**
+```http
+GET /api/chatrooms
+```
+| Parameter | Typ  | Beskrivning |
+|-----------|------|------------|
+| x | x | Hämtar alla chattrum |
+
+| Status | Beskrivning |
+|--------|------------|
+| 200    | Lyckad begäran (returnerar en array av chattrum) |
+| 404    | Inga chattrum hittades |
+| 500    | Serverfel |
+
+---
+
+####  **Hämta ett enskilt chattrum**
+```http
+GET /api/chatrooms/:id
+```
+| Parameter | Typ  | Beskrivning |
+|-----------|------|------------|
+| `id` | String | Chattrummets ID |
+
+| Status | Beskrivning |
+|--------|------------|
+| 200    | Returnerar chattrummets data |
+| 400    | Ogiltigt ID |
+| 404    | Chattrum hittades inte |
+| 500    | Serverfel |
+
+---
+
+
+
+
+
